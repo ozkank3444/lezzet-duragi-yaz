@@ -8,29 +8,34 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f8f9fa; color: #333; }
         
-        /* Üst Menü */
-        header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); sticky; top: 0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: bold; color: #d90429; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo img { height: 50px; width: auto; object-fit: contain; }
         nav a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 600; }
         .btn-call { background: #d90429; color: white !important; padding: 10px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; }
         
-        /* Hero Alanı */
-        .hero { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000') center/cover; height: 70vh; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
-        .hero p { font-size: 1.2rem; margin-bottom: 20px; }
-        .btn-wp { background: #25d366; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* Hero Slayt Alanı - Tam Sığdırma Ayarları */
+        .hero { position: relative; height: 60vh; max-height: 500px; min-height: 300px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 20px; background-color: #111; }
+        .slides-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; background-size: cover; background-position: center center; }
+        .slide.active { opacity: 1; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: 2; pointer-events: none; }
+        .hero-content { position: relative; z-index: 3; background: rgba(0,0,0,0.5); padding: 20px 30px; border-radius: 12px; backdrop-filter: blur(2px); max-width: 90%; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .hero p { font-size: 1.1rem; margin-bottom: 20px; }
+        .btn-wp { background: #25d366; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: inline-block; }
         
-        /* Menü Bölümü */
         .container { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; color: #111; margin-bottom: 30px; text-transform: uppercase; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; padding-bottom: 15px; }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card img { width: 100%; height: 220px; object-fit: cover; background: #fafafa; }
         .card h3 { margin: 15px 0 5px; color: #222; }
         .card p { color: #666; font-size: 0.9rem; padding: 0 10px; margin-bottom: 10px; }
         .price { font-size: 1.2rem; font-weight: bold; color: #d90429; }
         
-        /* İletişim Alt Alan */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .gallery-grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+
         footer { background: #222; color: white; text-align: center; padding: 30px 20px; margin-top: 50px; }
         footer p { margin-bottom: 10px; color: #ccc; }
         
@@ -38,54 +43,89 @@
             header { flex-direction: column; gap: 10px; }
             nav { margin-top: 10px; }
             nav a { margin: 0 8px; font-size: 0.9rem; }
-            .hero h1 { font-size: 1.8rem; }
+            .hero { height: 50vh; }
+            .hero h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo"><img src="images/logo.jpg" alt="Lezzet Durağı" style="height: 50px; width: auto; object-fit: contain;"></a>
+        <a href="#" class="logo"><img src="images/logo.jpg" alt="Lezzet Durağı"></a>
         <nav>
             <a href="#menu">Menü</a>
+            <a href="#galeri">Galeri</a>
             <a href="#iletisim">İletişim</a>
             <a href="tel:05441983844" class="btn-call">📞 0544 198 38 44</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Gümüşyaka'da Deniz Manzaralı Lezzet Keyfi</h1>
-        <p>Serpme Kahvaltı, Ev Yemekleri, Fastfood ve Izgara Çeşitleri</p>
-        <a href="https://wa.me/905441983844?text=Merhaba,%20siparis%20vermek%20istiyorum" class="btn-wp" target="_blank">💬 WhatsApp Sipariş Ver</a>
+        <div class="slides-container">
+            <div class="slide active" style="background-image: url('images/lokanta1.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta2.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta3.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta4.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta5.jpeg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta6.jpeg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta7.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta8.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta9.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta10.jpeg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta11.png');"></div>
+            <div class="slide" style="background-image: url('images/lokanta12.png');"></div>
+            <div class="slide" style="background-image: url('images/lokanta13.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta14.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta15.jpg');"></div>
+            <div class="slide" style="background-image: url('images/lokanta16.png');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Gümüşyaka'da Deniz Manzaralı Lezzet Keyfi</h1>
+            <p>Serpme Kahvaltı, Ev Yemekleri, Fastfood ve Izgara Çeşitleri</p>
+            <a href="https://wa.me/905441983844?text=Merhaba,%20siparis%20vermek%20istiyorum" class="btn-wp" target="_blank">💬 WhatsApp Sipariş Ver</a>
+        </div>
     </section>
 
     <div class="container" id="menu">
-        <h2 class="section-title">Menüden Seçmeler</h2>
+        <h2 class="section-title">Öne Çıkan Lezzetler</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=500" alt="Serpme Kahvaltı">
+                <img src="images/lokanta1.jpg" alt="Serpme Kahvaltı">
                 <h3>Serpme Kahvaltı</h3>
                 <p>Deniz manzarası eşliğinde bol çeşitli zengin kahvaltı.</p>
                 <div class="price">Arayınız</div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=500" alt="Gözleme Çeşitleri">
+                <img src="images/lokanta2.jpg" alt="Gözleme Çeşitleri">
                 <h3>El Açması Gözleme</h3>
                 <p>Peynirli, patatesli ve karışık çeşitleriyle.</p>
                 <div class="price">150 TL</div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?q=80&w=500" alt="Kayseri Mantısı">
+                <img src="images/lokanta3.jpg" alt="Deniz Manzarası">
                 <h3>Kayseri Mantısı</h3>
                 <p>Ev yapımı, yoğurtlu ve özel soslu mantı.</p>
                 <div class="price">250 TL</div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500" alt="Hamburger">
-                <h3>Hamburger Menü</h3>
-                <p>Hamburger + Patates + Ayran veya Limonata.</p>
-                <div class="price">250 TL</div>
+                <img src="images/lokanta11.png" alt="Menü Broşürü">
+                <h3>Tüm Menü</h3>
+                <p>Zengin fastfood ve sıcak yemek seçenekleri.</p>
+                <div class="price">İnceleyin</div>
             </div>
+        </div>
+    </div>
+
+    <div class="container" id="galeri">
+        <h2 class="section-title">Galeri</h2>
+        <div class="gallery-grid">
+            <img src="images/lokanta1.jpg" alt="Mekân 1">
+            <img src="images/lokanta2.jpg" alt="Mekân 2">
+            <img src="images/lokanta3.jpg" alt="Mekân 3">
+            <img src="images/lokanta4.jpg" alt="Mekân 4">
+            <img src="images/lokanta5.jpeg" alt="Mekân 5">
+            <img src="images/lokanta6.jpeg" alt="Mekân 6">
         </div>
     </div>
 
@@ -95,6 +135,19 @@
         <p>📞 Sipariş Hattı: 0544 198 38 44</p>
         <p>© 2026 Lezzet Durağı - Tüm Hakları Saklıdır.</p>
     </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 3000);
+    </script>
 
 </body>
 </html>
